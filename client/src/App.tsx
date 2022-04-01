@@ -19,7 +19,7 @@ const validateUserInput = (value: string): { error: boolean, message?: string } 
 
 
 function App() {
-  const [domains, setDomains] = useState<string[]>(['']);
+  const [domains, setDomains] = useState<Set<string>>(new Set());
   const [inputError, setInputError] = useState(EMPTY_INPUT_VALUE);
 
   const { data, error: requestErrors, isLoading, requestHostIO } = useHostIORequest();
@@ -34,7 +34,7 @@ function App() {
       }
     }
     setInputError('');
-    setDomains(domainsArray);
+    setDomains(new Set(domainsArray));
   };
 
   const renderDomains = () => {
@@ -62,7 +62,7 @@ function App() {
     <div className="app">
       <form onSubmit={(e) => {
         e.preventDefault();
-        requestHostIO(domains)
+        requestHostIO(Array.from(domains))
       }}>
         <div className="form">
           <label className='typewriter' htmlFor="rankings">Up to 10 input domain names one per line</label>

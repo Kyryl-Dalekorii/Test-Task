@@ -14,9 +14,6 @@ const runApp = async () => {
   app.use(express.urlencoded({ extended: false }));
   app.use(express.json());
 
-  // just to make requests to localhost work
-  // does not relate to caching process at alls
-
   app.get('/domain/:domain', async (req, res) => {
     const { domain } = req.params;
     const { token, limit = 10 } = req.query;
